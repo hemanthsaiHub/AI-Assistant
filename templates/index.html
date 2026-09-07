@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="shell">
+
+  <nav class="rail">
+    <div class="rail-mark">A</div>
+    <button class="rail-item is-active" data-panel="chat">
+      <span class="rail-label">Chat</span>
+    </button>
+    <button class="rail-item" data-panel="documents">
+      <span class="rail-label">Documents</span>
+    </button>
+    <button class="rail-item" data-panel="recommend">
+      <span class="rail-label">Recommend</span>
+    </button>
+    <button class="rail-item" data-panel="email">
+      <span class="rail-label">Email</span>
+    </button>
+  </nav>
+
+  <main class="stage">
+
+    <!-- CHAT PANEL -->
+    <section class="panel is-active" id="panel-chat">
+      <header class="panel-head">
+        <h1>Chat</h1>
+        <button class="ghost-btn" id="chat-reset">Clear conversation</button>
+      </header>
+      <div class="chat-log" id="chat-log">
+        <div class="msg msg-assistant">Ask me anything. I remember our conversation until you clear it.</div>
+      </div>
+      <form class="composer" id="chat-form">
+        <input type="text" id="chat-input" placeholder="Type a message" autocomplete="off">
+        <button type="submit">Send</button>
+      </form>
+    </section>
+
+    <!-- DOCUMENTS PANEL -->
+    <section class="panel" id="panel-documents">
+      <header class="panel-head">
+        <h1>Documents</h1>
+      </header>
+      <p class="hint">Upload a .txt or .pdf file, then ask questions about it below.</p>
+
+      <div class="upload-row">
+        <input type="file" id="doc-file" accept=".txt,.pdf">
+        <button id="doc-upload-btn">Upload</button>
+      </div>
+      <div class="doc-status" id="doc-status"></div>
+
+      <div class="chat-log" id="doc-log"></div>
+      <form class="composer" id="doc-form">
+        <input type="text" id="doc-question" placeholder="Ask something about the document" autocomplete="off">
+        <button type="submit">Ask</button>
+      </form>
+    </section>
+
+    <!-- RECOMMEND PANEL -->
+    <section class="panel" id="panel-recommend">
+      <header class="panel-head">
+        <h1>Recommend</h1>
+      </header>
+      <p class="hint">Tell me a category and what you like — I'll suggest a few options.</p>
+
+      <form class="stacked-form" id="recommend-form">
+        <label>Category
+          <input type="text" id="rec-category" placeholder="movies, restaurants, books...">
+        </label>
+        <label>Preferences
+          <input type="text" id="rec-preferences" placeholder="feel-good comedy under 2 hours">
+        </label>
+        <button type="submit">Get recommendations</button>
+      </form>
+      <div class="result-block" id="rec-result"></div>
+    </section>
+
+    <!-- EMAIL PANEL -->
+    <section class="panel" id="panel-email">
+      <header class="panel-head">
+        <h1>Email</h1>
+      </header>
+      <p class="hint">Requires a one-time Gmail connection — see the README.</p>
+
+      <div class="email-actions">
+        <button id="email-summary-btn">Summarize unread mail</button>
+      </div>
+      <div class="result-block" id="email-summary-result"></div>
+
+      <form class="stacked-form" id="email-draft-form">
+        <label>Draft a reply to your latest unread email
+          <input type="text" id="email-instructions" placeholder="politely decline, suggest next week">
+        </label>
+        <button type="submit">Draft reply</button>
+      </form>
+      <div class="result-block" id="email-draft-result"></div>
+    </section>
+
+  </main>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
